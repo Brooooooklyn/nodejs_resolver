@@ -18,7 +18,7 @@ jsonc-parser = { version = "0.22.1", features = ["serde"] }
 serde = { version = "1.0.183", features = ["derive"] }
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
 rustc-hash = "1.1.0"
-path-absolutize = "3.1.0"
+path-absolutize = { version = "3.1.0", features = ["use_unix_paths_on_wasm"] }
 dunce = "1.0.4"
 
 [dev-dependencies]

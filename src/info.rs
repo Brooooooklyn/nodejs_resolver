@@ -2,6 +2,8 @@ use crate::parse::Request;
 use path_absolutize::Absolutize;
 #[cfg(unix)]
 use std::os::unix::ffi::OsStrExt;
+#[cfg(target_os = "wasi")]
+use std::os::wasi::ffi::OsStrExt;
 #[cfg(windows)]
 use std::os::windows::ffi::OsStrExt;
 use std::{borrow::Cow, path::Path, sync::Arc};
@@ -11,7 +13,7 @@ fn has_trailing_slash(p: &Path) -> bool {
     let last = p.as_os_str().encode_wide().last();
     last == Some(b'\\' as u16) || last == Some(b'/' as u16)
 }
-#[cfg(unix)]
+#[cfg(any(unix, target_family = "wasm"))]
 fn has_trailing_slash(p: &Path) -> bool {
     p.as_os_str().as_bytes().last() == Some(&b'/')
 }
